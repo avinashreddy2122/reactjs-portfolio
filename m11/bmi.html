@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+        
+        <style>
+            h1{
+                color:black;
+                text-align: center;
+                font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+
+            }
+            h5{
+                font-size:medium;
+            }
+            .button{
+                color: purple;
+            }
+            .main{
+                margin-left: 30%;
+                margin-top: 9%;
+                margin-right: 30%;
+                
+                border: solid 2px;
+                border-color: white;
+                background-color:cornflowerblue;
+                color:darkred;
+                text-align: center;
+                font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                box-shadow: 0px 0px 10px 3px peru;
+            }
+            .result{
+                display: inline-block;
+                font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                border: solid 2px green;
+                margin-left: 23%;
+                margin-right: 25%;
+                padding: 10px;
+            }
+            
+        </style>
+    </head>
+
+
+    <body>
+        <div class = "main">
+            <h1><u>BMI Calculator</u></h1>
+            <h5 style="color: green"> Under Weight(18.5 & below), Normal(18.5-25), Over weight(25-30), Obese(30 and above)</h5>
+            <div id="root"></div>
+        </div>
+
+        <script type="text/babel">
+		
+            class BMICalculator extends React.Component{	
+                constructor(props){
+                    super(props);
+                    this.state = {weight:"", height:"", bmi:0};
+                }
+                            
+                render(){
+                    return (
+                        <div className = "btn">
+                            
+                            <h3>Enter your Weight in kgs</h3>
+                            <input onChange={this.read} name="weight" type="number" value={this.state.weight}/>
+                            <br/>
+                            <h3>Enter your Height in meters</h3>
+                            <input onChange={this.read} name="height" type="number" value={this.state.height}/>
+                            <br />
+                            <br />
+                            <button onClick={this.calculate} >Calculate BMI</button>                     
+                            <br/>
+                            <br/>
+                            <div className="result">Your BMI is : {this.state.bmi}</div>
+                            <br/>
+                            <br/>
+                        </div>
+                        
+                    );
+                }
+                
+                read = (event) =>{
+                    console.log(event.target.name);
+                    this.setState({[event.target.name]:event.target.value});			
+                }
+                
+                calculate = () =>{
+                    const bmi = Number(this.state.weight)/(Number(this.state.height)*(this.state.height));
+                    this.setState({bmi:bmi});
+                    this.setState({weight:""});
+                    this.setState({height:""});
+                }
+
+                
+            }
+            
+            ReactDOM.render(<BMICalculator />, document.querySelector("#root"));
+    
+        </script>
+    </body>
+
+    
+</html>
