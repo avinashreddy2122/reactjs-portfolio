@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+        
+        <style>
+            h1{
+                color: white;
+                text-align: center;
+                font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+
+            }
+            .button{
+                color:red ;
+            }
+            .main{
+                margin-left: 30%;
+                margin-top: 15%;
+                margin-right: 30%;
+                
+                border: solid 2px;
+                border-color: white;
+                background-color:maroon;
+                color: white;
+                text-align: center;
+                font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                box-shadow: 0px 0px 10px 3px black;
+            }
+            .result{
+                border: solid 2px green ;
+                margin-left: 40%;
+                margin-right: 40%;
+            }
+        </style>
+    </head>
+
+
+    <body>
+        <div class = "main">
+            <h1>Calculator</h1>
+            <div id="root"></div>
+        </div>
+
+        <script type="text/babel">
+		
+            class Operations extends React.Component{	
+                constructor(props){
+                    super(props);
+                    this.state = {val1:"", val2:"", res:0};
+                }
+                            
+                render(){
+                    return (
+                        <div className = "btn">
+                            
+                            <input onChange={this.read} name="val1" type="number" value={this.state.val1}/>
+                            <input onChange={this.read} name="val2" type="number" value={this.state.val2}/>
+                            <br />
+                            <br />
+                            <button onClick={this.add} >Add</button>
+                            <button onClick={this.substract} >Substract</button>
+                            <button onClick={this.multiply} >Multiply</button>
+                            <button onClick={this.division} >Divide</button>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div className="result">Result : {this.state.res}</div>
+                            <br/>
+                            <br/>
+                        </div>
+                        
+                    );
+                }
+                
+                read = (ele) =>{
+                    console.log(ele.target.name);
+                    this.setState({[ele.target.name]:ele.target.value});			
+                }
+                
+                add = () =>{
+                    const res = Number(this.state.val1)+Number(this.state.val2);
+                    this.setState({res:res});
+                    this.setState({val1:""});
+                    this.setState({val2:""});
+                }
+
+                substract = () =>{
+                    const res = Number(this.state.val1)-Number(this.state.val2);
+                    this.setState({res:res});
+                    this.setState({val1:""});
+                    this.setState({val2:""});
+                }
+
+                multiply = () =>{
+                    const res = (Number(this.state.val1)*Number(this.state.val2));
+                    this.setState({res:res});
+                    this.setState({val1:""});
+                    this.setState({val2:""});
+                }
+
+                division = () =>{
+                    const res = (Number(this.state.val1)/Number(this.state.val2));
+                    this.setState({res:res});
+                    this.setState({val1:""});
+                    this.setState({val2:""});
+                }
+                
+            }
+            
+            ReactDOM.render(<Operations />, document.querySelector("#root"));
+    
+        </script>
+    </body>
+
+    
+</html>
